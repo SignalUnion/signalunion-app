@@ -1,48 +1,74 @@
 # 🎛 SignalUnion
 
-A curation pipeline and remix coordination tool for aligned musicians, audio explorers, and AI collaborators.
+A remix intake + curation platform for aligned musicians, audio explorers, and AI-collaborators.
 
-This app allows artists to:
-- Submit remixes (e.g. from Suno, personal stems, collabs)
-- Tag them with signal themes ("ambient", "hopepunk", "posthuman")
-- Be featured in playlists like Early Buzz FM, GrapheneRadio, Echo Code
+Built to amplify early voices and connect low-reach, high-signal creators through shared aesthetic threads.
 
-Curators can:
+---
+
+## 🔁 Core Features
+
+### 🧠 Artists can:
+- Submit Suno remixes or original tracks
+- Add tags: "ambient", "resistance", "griefwave", "posthuman", etc.
+- Get featured in curated playlists like **GrapheneRadio**, **Early Buzz FM**, and **Echo Code**
+
+### 🧭 Curators can:
 - Approve submissions
-- Assign them to thematic playlists
-- Publish a public wall of featured tracks
+- Assign playlists
+- Publish tracks to a public-facing wall
+- Build community across artists with shared values
 
 ---
 
-## 🔧 Stack
+## 🛠 Stack
 
-- Supabase (database + audio file uploads)
-- Next.js or SvelteKit frontend
-- TailwindCSS styling
-- Spotify API integration (planned)
-
----
-
-## 🛠 TODO
-
-- [ ] Submission form + upload flow
-- [ ] Playlist assignment dashboard
-- [ ] Artist profile index
-- [ ] Featured/remix tags
-- [ ] Auto-push to playlist curation
-- [ ] Open Graph card generation
+- **Supabase** for storage + database
+- **Next.js + TailwindCSS** for frontend
+- **Spotify API** integration (planned)
+- **Notion** as remix form + submission portal
+- **Codex** used for rapid prototyping (where safe)
 
 ---
 
-## 🧠 Why This Exists
+## 🚀 Status
 
-There's a global wave of artists and builders with powerful voices — but low discoverability. This project aims to:
-- Unite them under common aesthetic threads
-- Lower the friction to remix + share
-- Provide decentralized boost infrastructure without corporate filters
+- [x] Submission form schema created
+- [x] Remix intake API endpoint scaffolded
+- [x] Curator dashboard layout in planning
+- [x] Repo linked from [trysophia.io](https://trysophia.io)
 
 ---
 
-### Built for: GrapheneRadio, Early Buzz FM, and remixers everywhere.
+## 🧪 Sample Supabase Schema
+
+```sql
+CREATE TABLE artist_submissions (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    artist_name TEXT NOT NULL,
+    spotify_link TEXT NOT NULL,
+    track_submission_url TEXT,
+    remix_file_url TEXT,
+    signal_tags TEXT[],
+    contact_email TEXT,
+    approved BOOLEAN DEFAULT FALSE,
+    playlist_assignment TEXT,
+    created_at TIMESTAMP DEFAULT now()
+);
+```
+
+---
+
+## 🌍 Why This Exists
+
+There are thousands of aligned creators with no way to find each other — and no infrastructure to carry their signal. SignalUnion aims to:
+- Curate voices that would otherwise be buried
+- Build remix pipelines for under-recognized artists
+- Maintain cultural integrity in an AI-saturated world
+
+---
+
+> Built for: GrapheneRadio, Early Buzz FM, Sophia remixers, and decentralized listeners.
 
 MIT licensed — remix the remix.
+
