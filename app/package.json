@@ -8,7 +8,8 @@
     "start": "next build && next start",
     "lint": "next lint",
     "seed": "tsc src/utils/seed.ts --outDir dist && node dist/utils/seed.js",
-    "clean-start": "rm -rf .next node_modules/.cache node_modules ~/.next && npm install && npm run build && npm run start"
+    "clean-start": "rm -rf .next node_modules/.cache node_modules ~/.next && npm install && npm run build && npm run start",
+    "prepare": "husky install ../.husky"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
@@ -27,6 +28,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
+    "husky": "^9.1.7",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

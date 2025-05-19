@@ -18,7 +18,7 @@ export const TrackPreviewCard: React.FC<{
   onToggleSelect: (id: string) => void;
 }> = ({ submission, onToggleSelect }) => {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-900 p-4 shadow-md space-y-2">
+    <div className="rounded-xl border border-gray-800 bg-gray-800 p-4 shadow-md space-y-2">
       <div className="flex justify-between items-center">
         <input
           type="checkbox"

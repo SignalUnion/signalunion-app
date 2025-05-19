@@ -38,13 +38,16 @@ export default function AdminDashboard() {
 
   return (
     <div className="p-6 space-y-4 text-white min-h-screen">
-      <h1 className="text-2xl font-bold">SignalUnion Admin Dashboard</h1>
+      <div className="text-center mb-8 bg-black/30 backdrop-blur-sm p-6 rounded-xl">
+        <h1 className="text-4xl font-bold text-white mb-2">SignalUnion Admin Dashboard</h1>
+        <p className="text-lg text-gray-200">Manage submitted tracks</p>
+      </div>
 
       <div className="flex gap-4">
-        <button onClick={() => bulkAction("approved")} className="bg-green-600 px-4 py-2 rounded">
+        <button onClick={() => bulkAction("approved")} className="bg-green-800 hover:bg-green-700 text-white px-4 py-2 rounded transition-colors duration-200">
           Approve Selected
         </button>
-        <button onClick={() => bulkAction("rejected")} className="bg-red-600 px-4 py-2 rounded">
+        <button onClick={() => bulkAction("rejected")} className="bg-red-800 hover:bg-red-700 text-white px-4 py-2 rounded transition-colors duration-200">
           Reject Selected
         </button>
       </div>
