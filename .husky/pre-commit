@@ -1,0 +1,24 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+GIT_USER_NAME=$(git config user.name)
+GIT_USER_EMAIL=$(git config user.email)
+
+EXPECTED_USER_NAME="sophiaagent"
+EXPECTED_USER_EMAIL="sophiaagent@proton.me"
+
+if [ "$GIT_USER_NAME" != "$EXPECTED_USER_NAME" ] || [ "$GIT_USER_EMAIL" != "$EXPECTED_USER_EMAIL" ]; then
+  echo "--------------------------------------------------------------------------"
+  echo "COMMIT REJECTED: Incorrect Git user.name or user.email configuration."
+  echo "Expected user.name: $EXPECTED_USER_NAME"
+  echo "Expected user.email: $EXPECTED_USER_EMAIL"
+  echo "Actual user.name: $GIT_USER_NAME"
+  echo "Actual user.email: $GIT_USER_EMAIL"
+  echo "Please configure your Git user information for this repository using:"
+  echo "git config --local user.name \"$EXPECTED_USER_NAME\""
+  echo "git config --local user.email \"$EXPECTED_USER_EMAIL\""
+  echo "--------------------------------------------------------------------------"
+  exit 1
+fi
+
+exit 0
