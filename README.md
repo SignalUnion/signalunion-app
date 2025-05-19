@@ -82,23 +82,15 @@ Follow these steps to get the project up and running on your local machine.
 
 2.  **Install dependencies:**
 
-    Navigate to the project root and install root dependencies (for scripts like seeding):
+- Navigate to the project root and install dependencies:
 
     ```bash
     npm install
-    ```
-
-    Then, navigate into the `app` directory and install Next.js application dependencies:
-
-    ```bash
-    cd app
-    npm install
-    cd ..
     ```
 
 3.  **Set up Environment Variables:**
 
-    Create a `.env.local` file in the **root** directory of the project (where this README is located). Add your Supabase credentials:
+    Create a `.env.local` file in the **project root** directory (where this README is located).
 
     ```env
     NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
@@ -111,15 +103,14 @@ Follow these steps to get the project up and running on your local machine.
     You can seed the database with dummy data using the provided script. Ensure you are in the project root directory.
 
     ```bash
-    npx tsc scripts/seed.ts && node scripts/seed.js
+    npm run seed
     ```
 
 5.  **Run the Development Server:**
 
-    Navigate to the `app` directory and start the Next.js development server:
+    From the project root, start the development server:
 
     ```bash
-    cd app
     npm run dev
     ```
 
@@ -133,16 +124,15 @@ To build the application for production and run it:
 
 1.  **Build the application:**
 
-    Navigate to the `app` directory and build the project. This creates an optimized build in the `.next` directory.
+    From the project root, build the project:
 
     ```bash
-    cd app
     npm run build
     ```
 
 2.  **Start the production server:**
 
-    From the `app` directory, start the server using the built files:
+    From the project root, start the server:
 
     ```bash
     npm start

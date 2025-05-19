@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from 'next/image';
 
 const phrases = [
   "Sound beyond the system.",
@@ -24,7 +25,13 @@ export default function LandingPage() {
   return (
     <main className="min-h-screen text-white flex flex-col items-center justify-center px-4 py-10 space-y-12 relative">
       <section className="text-center space-y-4 relative z-10 bg-black/30 backdrop-blur-sm p-6 rounded-xl">
-        <img src="/signalunion_avatar_square_512.png" alt="SignalUnion Logo" className="w-32 h-32 mx-auto mb-4 rounded-full" />
+        <Image 
+          src="/signalunion_avatar_square_512.png" 
+          alt="SignalUnion Logo" 
+          width={128}
+          height={128}
+          className="w-32 h-32 mx-auto mb-4 rounded-full" 
+        />
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white">SignalUnion</h1>
         <p className="text-xl md:text-2xl text-gray-200 h-8 transition-opacity duration-500 ease-in-out">
           {phrases[phraseIndex]}

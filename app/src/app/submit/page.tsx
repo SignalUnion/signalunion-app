@@ -104,7 +104,7 @@ export default function SubmitPage() {
 
       if (error) throw error
 
-      setMessage('Submission successful! We&apos;ll review your track soon.')
+      setMessage('Submission successful! We will review your track soon.')
       setFormData({
         artist_name: '',
         spotify_link: '',
@@ -113,7 +113,7 @@ export default function SubmitPage() {
         signal_tags: '',
         contact_email: '',
       })
-    } catch (error) { // eslint-disable-line @typescript-eslint/no-unused-vars
+    } catch (error) {
       setMessage('Error submitting form. Please try again.')
       console.error('Error:', error)
     } finally {
@@ -128,6 +128,28 @@ export default function SubmitPage() {
     if (validationErrors[name]) {
       setValidationErrors(prev => ({ ...prev, [name]: '' }));
     }
+  };
+
+  // Simple test data generator
+  const generateTestData = () => {
+    const uniqueId = Date.now(); // Use timestamp for some uniqueness
+    const artistName = `Test Artist ${uniqueId} (test)`;
+    const contactEmail = `test.artist${uniqueId}@example.com`;
+
+    return {
+      artist_name: artistName,
+      spotify_link: `https://open.spotify.com/artist/testartist${uniqueId}`,
+      track_submission_url: `https://soundcloud.com/testuser/test-track-${uniqueId}`,
+      remix_file_url: `https://drive.google.com/test-remix-${uniqueId}`,
+      signal_tags: `test, generated, tag${Math.floor(Math.random() * 100)}`,
+      contact_email: contactEmail,
+    };
+  };
+
+  const handleFillTestData = () => {
+    const testData = generateTestData();
+    setFormData(testData);
+    setValidationErrors({}); // Clear validation errors when filling with test data
   };
 
   if (isLoadingUser) {
@@ -147,6 +169,17 @@ export default function SubmitPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-8 rounded-xl shadow-lg dark:shadow-2xl">
+
+          {process.env.NODE_ENV === 'development' && (
+            <button
+              type="button"
+              onClick={handleFillTestData}
+              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 dark:bg-indigo-900 dark:text-indigo-200 dark:hover:bg-indigo-800 dark:focus:ring-offset-gray-800 mb-4"
+            >
+              Fill with Test Data
+            </button>
+          )}
+
           <div>
             <label htmlFor="artist_name" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Artist Name *
