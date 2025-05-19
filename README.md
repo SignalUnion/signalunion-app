@@ -68,6 +68,90 @@ There are thousands of aligned creators with no way to find each other — and n
 
 ---
 
+## 🚀 Getting Started
+
+Follow these steps to get the project up and running on your local machine.
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone [repository_url]
+    cd signalunion-app
+    ```
+    Replace `[repository_url]` with the actual URL of this repository.
+
+2.  **Install dependencies:**
+
+    Navigate to the project root and install root dependencies (for scripts like seeding):
+
+    ```bash
+    npm install
+    ```
+
+    Then, navigate into the `app` directory and install Next.js application dependencies:
+
+    ```bash
+    cd app
+    npm install
+    cd ..
+    ```
+
+3.  **Set up Environment Variables:**
+
+    Create a `.env.local` file in the **root** directory of the project (where this README is located). Add your Supabase credentials:
+
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    ```
+    Replace `your_supabase_url` and `your_supabase_anon_key` with your actual Supabase project URL and public anon key.
+
+4.  **Seed the Database (Optional):**
+
+    You can seed the database with dummy data using the provided script. Ensure you are in the project root directory.
+
+    ```bash
+    npx tsc scripts/seed.ts && node scripts/seed.js
+    ```
+
+5.  **Run the Development Server:**
+
+    Navigate to the `app` directory and start the Next.js development server:
+
+    ```bash
+    cd app
+    npm run dev
+    ```
+
+    The application should now be running at `http://localhost:3000`.
+
+---
+
+### 🏗 Building and Running in Production
+
+To build the application for production and run it:
+
+1.  **Build the application:**
+
+    Navigate to the `app` directory and build the project. This creates an optimized build in the `.next` directory.
+
+    ```bash
+    cd app
+    npm run build
+    ```
+
+2.  **Start the production server:**
+
+    From the `app` directory, start the server using the built files:
+
+    ```bash
+    npm start
+    ```
+
+    The application will be served from `http://localhost:3000`.
+
+---
+
 > Built for: GrapheneRadio, Early Buzz FM, Sophia remixers, and decentralized listeners.
 
 MIT licensed — remix the remix.
