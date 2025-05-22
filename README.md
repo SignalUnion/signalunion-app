@@ -1,148 +1,183 @@
-# 🎛 SignalUnion
+# Supabase CLI
 
-A remix intake + curation platform for aligned musicians, audio explorers, and AI-collaborators.
+[![Coverage Status](https://coveralls.io/repos/github/supabase/cli/badge.svg?branch=main)](https://coveralls.io/github/supabase/cli?branch=main) [![Bitbucket Pipelines](https://img.shields.io/bitbucket/pipelines/supabase-cli/setup-cli/master?style=flat-square&label=Bitbucket%20Canary)](https://bitbucket.org/supabase-cli/setup-cli/pipelines) [![Gitlab Pipeline Status](https://img.shields.io/gitlab/pipeline-status/sweatybridge%2Fsetup-cli?label=Gitlab%20Canary)
+](https://gitlab.com/sweatybridge/setup-cli/-/pipelines)
 
-Built to amplify early voices and connect low-reach, high-signal creators through shared aesthetic threads.
+[Supabase](https://supabase.io) is an open source Firebase alternative. We're building the features of Firebase using enterprise-grade open source tools.
 
----
+This repository contains all the functionality for Supabase CLI.
 
-## 🔁 Core Features
+- [x] Running Supabase locally
+- [x] Managing database migrations
+- [x] Creating and deploying Supabase Functions
+- [x] Generating types directly from your database schema
+- [x] Making authenticated HTTP requests to [Management API](https://supabase.com/docs/reference/api/introduction)
 
-### 🧠 Artists can:
-- Submit Suno remixes or original tracks
-- Add tags: "ambient", "resistance", "griefwave", "posthuman", etc.
-- Get featured in curated playlists like **GrapheneRadio**, **Early Buzz FM**, and **Echo Code**
+## Getting started
 
-### 🧭 Curators can:
-- Approve submissions
-- Assign playlists
-- Publish tracks to a public-facing wall
-- Build community across artists with shared values
+### Install the CLI
 
----
+Available via [NPM](https://www.npmjs.com) as dev dependency. To install:
 
-## 🛠 Stack
-
-- **Supabase** for storage + database
-- **Next.js + TailwindCSS** for frontend
-- **Spotify API** integration (planned)
-- **Notion** as remix form + submission portal
-- **Codex** used for rapid prototyping (where safe)
-
----
-
-## 🚀 Status
-
-- [x] Submission form schema created
-- [x] Remix intake API endpoint scaffolded
-- [x] Curator dashboard layout in planning
-- [x] Repo linked from [trysophia.io](https://trysophia.io)
-
----
-
-## 🧪 Sample Supabase Schema
-
-```sql
-CREATE TABLE artist_submissions (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    artist_name TEXT NOT NULL,
-    spotify_link TEXT NOT NULL,
-    track_submission_url TEXT,
-    remix_file_url TEXT,
-    signal_tags TEXT[],
-    contact_email TEXT,
-    approved BOOLEAN DEFAULT FALSE,
-    playlist_assignment TEXT,
-    created_at TIMESTAMP DEFAULT now()
-);
+```bash
+npm i supabase --save-dev
 ```
 
----
+To install the beta release channel:
 
-## 🌍 Why This Exists
+```bash
+npm i supabase@beta --save-dev
+```
 
-There are thousands of aligned creators with no way to find each other — and no infrastructure to carry their signal. SignalUnion aims to:
-- Curate voices that would otherwise be buried
-- Build remix pipelines for under-recognized artists
-- Maintain cultural integrity in an AI-saturated world
+When installing with yarn 4, you need to disable experimental fetch with the following nodejs config.
 
----
+```
+NODE_OPTIONS=--no-experimental-fetch yarn add supabase
+```
 
-## 🚀 Getting Started
+> **Note**
+For Bun versions below v1.0.17, you must add `supabase` as a [trusted dependency](https://bun.sh/guides/install/trusted) before running `bun add -D supabase`.
 
-Follow these steps to get the project up and running on your local machine.
+<details>
+  <summary><b>macOS</b></summary>
 
-1.  **Clone the repository:**
+  Available via [Homebrew](https://brew.sh). To install:
 
-    ```bash
-    git clone [repository_url]
-    cd signalunion-app
-    ```
-    Replace `[repository_url]` with the actual URL of this repository.
+  ```sh
+  brew install supabase/tap/supabase
+  ```
 
-2.  **Install dependencies:**
+  To install the beta release channel:
+  
+  ```sh
+  brew install supabase/tap/supabase-beta
+  brew link --overwrite supabase-beta
+  ```
+  
+  To upgrade:
 
-- Navigate to the project root and install dependencies:
+  ```sh
+  brew upgrade supabase
+  ```
+</details>
 
-    ```bash
-    npm install
-    ```
+<details>
+  <summary><b>Windows</b></summary>
 
-3.  **Set up Environment Variables:**
+  Available via [Scoop](https://scoop.sh). To install:
 
-    Create a `.env.local` file in the **project root** directory (where this README is located).
+  ```powershell
+  scoop bucket add supabase https://github.com/supabase/scoop-bucket.git
+  scoop install supabase
+  ```
 
-    ```env
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-    ```
-    Replace `your_supabase_url` and `your_supabase_anon_key` with your actual Supabase project URL and public anon key.
+  To upgrade:
 
-4.  **Seed the Database (Optional):**
+  ```powershell
+  scoop update supabase
+  ```
+</details>
 
-    You can seed the database with dummy data using the provided script. Ensure you are in the project root directory.
+<details>
+  <summary><b>Linux</b></summary>
 
-    ```bash
-    npm run seed
-    ```
+  Available via [Homebrew](https://brew.sh) and Linux packages.
 
-5.  **Run the Development Server:**
+  #### via Homebrew
 
-    From the project root, start the development server:
+  To install:
 
-    ```bash
-    npm run dev
-    ```
+  ```sh
+  brew install supabase/tap/supabase
+  ```
 
-    The application should now be running at `http://localhost:3000`.
+  To upgrade:
 
----
+  ```sh
+  brew upgrade supabase
+  ```
 
-### 🏗 Building and Running in Production
+  #### via Linux packages
 
-To build the application for production and run it:
+  Linux packages are provided in [Releases](https://github.com/supabase/cli/releases). To install, download the `.apk`/`.deb`/`.rpm`/`.pkg.tar.zst` file depending on your package manager and run the respective commands.
 
-1.  **Build the application:**
+  ```sh
+  sudo apk add --allow-untrusted <...>.apk
+  ```
 
-    From the project root, build the project:
+  ```sh
+  sudo dpkg -i <...>.deb
+  ```
 
-    ```bash
-    npm run build
-    ```
+  ```sh
+  sudo rpm -i <...>.rpm
+  ```
 
-2.  **Start the production server:**
+  ```sh
+  sudo pacman -U <...>.pkg.tar.zst
+  ```
+</details>
 
-    From the project root, start the server:
+<details>
+  <summary><b>Other Platforms</b></summary>
 
-    ```bash
-    npm start
-    ```
+  You can also install the CLI via [go modules](https://go.dev/ref/mod#go-install) without the help of package managers.
 
-    The application will be served from `http://localhost:3000`.
+  ```sh
+  go install github.com/supabase/cli@latest
+  ```
 
----
+  Add a symlink to the binary in `$PATH` for easier access:
 
-> Built for: GrapheneRadio, Early Buzz FM, Sophia remixers, and decentralized listeners.
+  ```sh
+  ln -s "$(go env GOPATH)/bin/cli" /usr/bin/supabase
+  ```
 
-MIT licensed — remix the remix.
+  This works on other non-standard Linux distros.
+</details>
 
+<details>
+  <summary><b>Community Maintained Packages</b></summary>
+
+  Available via [pkgx](https://pkgx.sh/). Package script [here](https://github.com/pkgxdev/pantry/blob/main/projects/supabase.com/cli/package.yml).
+  To install in your working directory:
+
+  ```bash
+  pkgx install supabase
+  ```
+
+  Available via [Nixpkgs](https://nixos.org/). Package script [here](https://github.com/NixOS/nixpkgs/blob/master/pkgs/development/tools/supabase-cli/default.nix).
+</details>
+
+### Run the CLI
+
+```bash
+supabase bootstrap
+```
+
+Or using npx:
+
+```bash
+npx supabase bootstrap
+```
+
+The bootstrap command will guide you through the process of setting up a Supabase project using one of the [starter](https://github.com/supabase-community/supabase-samples/blob/main/samples.json) templates.
+
+## Docs
+
+Command & config reference can be found [here](https://supabase.com/docs/reference/cli/about).
+
+## Breaking changes
+
+We follow semantic versioning for changes that directly impact CLI commands, flags, and configurations.
+
+However, due to dependencies on other service images, we cannot guarantee that schema migrations, seed.sql, and generated types will always work for the same CLI major version. If you need such guarantees, we encourage you to pin a specific version of CLI in package.json.
+
+## Developing
+
+To run from source:
+
+```sh
+# Go >= 1.22
+go run . help
+```

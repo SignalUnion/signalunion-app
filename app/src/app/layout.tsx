@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RotatingBackground from "@/components/RotatingBackground";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +33,7 @@ export default function RootLayout({
       >
         <RotatingBackground />
         <Header />
+        <Toaster position="top-right" />
         <main className="flex-1">
           {children}
         </main>

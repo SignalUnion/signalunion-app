@@ -4,6 +4,13 @@ import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 import { User } from '@supabase/supabase-js'
+import { createClient } from '@supabase/supabase-js';
+
+// Refactored data fetching for generateMetadata
+// const supabaseAdmin = createClient(
+//   process.env.NEXT_PUBLIC_SUPABASE_URL!,
+//   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+// );
 
 export default function SubmitPage() {
   const [formData, setFormData] = useState({

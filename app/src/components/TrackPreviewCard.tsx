@@ -1,87 +1,64 @@
 import React from "react";
 
+export type SubmissionStatus = "approved" | "pending" | "rejected";
+
 export interface TrackSubmission {
   id: string;
-  artist_name: string;
-  spotify_link?: string;
-  track_url?: string;
-  remix_url?: string;
-  tags: string[];
-  contact_email: string;
-  status: "pending" | "approved" | "rejected";
-  created_at?: string;
-  selected?: boolean;
+  title: string;
+  artist: string;
+  description?: string;
+  status: SubmissionStatus;
+  audio_url?: string;
 }
 
-export const TrackPreviewCard: React.FC<{
+interface Props {
   submission: TrackSubmission;
   onToggleSelect: (id: string) => void;
-  onUpdateStatus: (id: string, status: TrackSubmission['status']) => Promise<void>;
-}> = ({ submission, onToggleSelect, onUpdateStatus }) => {
-  let statusColor = 'text-yellow-400';
-  if (submission.status === 'approved') {
-    statusColor = 'text-green-400';
-  } else if (submission.status === 'rejected') {
-    statusColor = 'text-red-400';
-  }
+  onUpdateStatus: (id: string, status: SubmissionStatus) => Promise<void>;
+}
 
+export function TrackPreviewCard({
+  submission,
+  onToggleSelect,
+  onUpdateStatus,
+}: Props) {
   return (
-    <div className="rounded-xl border border-gray-800 bg-gray-800 p-4 shadow-md space-y-2">
-      <div className="flex justify-between items-center">
-        <input
-          type="checkbox"
-          checked={submission.selected || false}
-          onChange={() => onToggleSelect(submission.id)}
-        />
-        <span className="text-xs font-medium text-gray-400">
-          {submission.created_at ? new Date(submission.created_at).toLocaleDateString() : ""}
-        </span>
-      </div>
-      <div className={`text-sm font-medium ${statusColor}`}>
-        Status: {submission.status.charAt(0).toUpperCase() + submission.status.slice(1)}
-      </div>
-      <h3 className="text-lg font-bold text-white">{submission.artist_name}</h3>
-      <p className="text-sm text-gray-400">{submission.contact_email}</p>
-      <p className="text-sm text-gray-300">
-        <strong>Tags:</strong> {submission.tags.join(", ")}
-      </p>
-      <div className="space-x-2 text-sm">
-        {submission.spotify_link && (
-          <a className="text-blue-400 underline" href={submission.spotify_link} target="_blank">Spotify</a>
-        )}
-        {submission.track_url && (
-          <a className="text-blue-400 underline" href={submission.track_url} target="_blank">Track</a>
-        )}
-        {submission.remix_url && (
-          <a className="text-blue-400 underline" href={submission.remix_url} target="_blank">Remix</a>
-        )}
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {submission.status !== 'approved' && (
-          <button
-            onClick={() => onUpdateStatus(submission.id, 'approved')}
-            className="bg-green-800 hover:bg-green-700 text-white text-xs px-3 py-1 rounded transition-colors duration-200"
-          >
-            Approve
-          </button>
-        )}
-        {submission.status !== 'rejected' && (
-          <button
-            onClick={() => onUpdateStatus(submission.id, 'rejected')}
-            className="bg-red-800 hover:bg-red-700 text-white text-xs px-3 py-1 rounded transition-colors duration-200"
-          >
-            Reject
-          </button>
-        )}
-        {submission.status !== 'pending' && (
-          <button
-            onClick={() => onUpdateStatus(submission.id, 'pending')}
-            className="bg-yellow-800 hover:bg-yellow-700 text-white text-xs px-3 py-1 rounded transition-colors duration-200"
-          >
-            Mark as Pending
-          </button>
-        )}
+    <div className="border rounded p-4 shadow-sm space-y-2">
+      <h3 className="text-xl font-bold">{submission.title}</h3>
+      <p className="text-sm text-gray-600">{submission.artist}</p>
+      {submission.description && <p className="text-gray-700">{submission.description}</p>}
+      {submission.audio_url && (
+        <audio controls className="w-full mt-2">
+          <source src={submission.audio_url} type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      )}
+      <div className="flex gap-2 pt-2">
+        <button
+          className="px-2 py-1 text-sm bg-green-500 text-white rounded"
+          onClick={() => onUpdateStatus(submission.id, "approved")}
+        >
+          Approve
+        </button>
+        <button
+          className="px-2 py-1 text-sm bg-yellow-500 text-white rounded"
+          onClick={() => onUpdateStatus(submission.id, "pending")}
+        >
+          Pend
+        </button>
+        <button
+          className="px-2 py-1 text-sm bg-red-500 text-white rounded"
+          onClick={() => onUpdateStatus(submission.id, "rejected")}
+        >
+          Reject
+        </button>
+        <button
+          className="ml-auto px-2 py-1 text-sm bg-gray-100 rounded"
+          onClick={() => onToggleSelect(submission.id)}
+        >
+          Toggle Select
+        </button>
       </div>
     </div>
   );
-}; 
+}
